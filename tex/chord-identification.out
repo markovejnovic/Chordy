@@ -1,0 +1,13 @@
+\BOOKMARK [1][-]{section.1}{Rationale}{}% 1
+\BOOKMARK [1][-]{section.2}{Introduction}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Musical background}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Fourier transformation}{section.2}% 4
+\BOOKMARK [3][-]{subsubsection.2.2.1}{Fourier series}{subsection.2.2}% 5
+\BOOKMARK [2][-]{subsection.2.3}{The Fourier transformation}{section.2}% 6
+\BOOKMARK [1][-]{section.3}{The chord identification algorithm}{}% 7
+\BOOKMARK [2][-]{subsection.3.1}{The Fourier transformation}{section.3}% 8
+\BOOKMARK [2][-]{subsection.3.2}{Fourier transform peak identification}{section.3}% 9
+\BOOKMARK [2][-]{subsection.3.3}{Note identification}{section.3}% 10
+\BOOKMARK [2][-]{subsection.3.4}{Chord identification}{section.3}% 11
+\BOOKMARK [1][-]{section.4}{Evaluation}{}% 12
+\BOOKMARK [1][-]{section.5}{Conclusion}{}% 13
