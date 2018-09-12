@@ -13,11 +13,11 @@ You need `matplotlib`, `numpy`, `scipy`.
 
 To give the algorithm a spin, clone the repository:
 ```bash
-git clone git@github.com:markovejnovic/chord-identification.git
+git clone git@github.com:markovejnovic/Chordy.git
 ```
 Next, add execution privileges to the script
 ```bash
-cd chord-identification
+cd Chordy
 chmod +x ./src/plot_chord.py
 ```
 
