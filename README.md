@@ -3,7 +3,7 @@
 Chordy is a small research project of which the main goal is to create an 
 algorithm for identifying triad chords. It is my internal assessment paper for 
 the Higher Level Mathematics course for the International Baccalaureate diploma
-program
+program.
 
 ## Requirements
 
