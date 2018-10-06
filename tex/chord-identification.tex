@@ -6,6 +6,8 @@
 \usepackage{hyperref}
 \usepackage{graphicx}
 \usepackage{pgfplots}
+\usepackage{siunitx}
+\usepackage[notquote]{hanging}
 \pgfplotsset{compat=newest}
 
 \providecommand{\abs}[1]{\lvert#1\rvert}
@@ -23,7 +25,7 @@
 \paragraph*{}
 As someone who is interested in signals, music and mathematics it was obvious 
 for me that I wanted my mathematics internal assessment to be related to 
-music. Although I have known and used the Fourier transformations before, I 
+music. Although I have known of and used the Fourier transformations before, I 
 have never used Fourier transformations to find individual notes in sounds. I 
 decided, therefore, to try and identify chords using Fourier transformations, 
 and try to find which are the composing notes of a chord.
@@ -98,8 +100,8 @@ is used.
 \subsection{Fourier transformation}
 
 \paragraph*{}
-To prove the Fourier transformation, a definition of what the Fourier series 
-is necessary.
+To understand the Fourier transformation, a definition of what the Fourier 
+series is necessary.
 
 \subsubsection{Fourier series}
 
@@ -129,8 +131,12 @@ The premise is that it is possible to express this function as a sum of cosine
 waves:
 $$f(t) = \sum^{\infty}_{n=0}a_n \cos(2 \pi n t)$$
 
-It is necessary to calculate the values of $a_n$. This problem is done in the 
-following manner:
+Note that $n$ is the frequency of the wave in $\si{Hz}$. This derivation will 
+employ $\si{Hz}$, however, no difference does it pose to use a radial frequency
+either.
+
+However, from this premise, it is necessary to calculate the values of $a_n$'s. 
+This problem is solved in the following manner:
 
 \paragraph*{}
 Both sides are multiplied by $\cos(2 \pi m t)$:
@@ -142,15 +148,15 @@ trigonometric identity of the product of cosines is employed:
 		\int_{T} f(t) \cos(2 \pi m t) dt &= 
 		\int_{T} \sum^{\infty}_{n=0} a_n \cos(2 \pi n t) \cos(2 \pi m t) dt \\
 		&= \sum^{\infty}_{n=0} a_n \int_{T} \cos(2 \pi n t) \cos(2 \pi m t) dt \\
-		&= \frac{1}{2} \sum^{\infty}_{n=0} a_n \int_{T} (\cos( (m + n) 2 \pi t) + \cos( (m - n) 2 \pi t)) dt \\
+		&= \frac{1}{2} \sum^{\infty}_{n=0} a_n \int_{T} \Big(\cos \big( (m + n) 2 \pi t \big) + \cos \big( (m - n) 2 \pi t \big) \Big) dt \\
 	\end{aligned}
 	\label{eqn:fourier-series-1}
 \end{equation}
 Suppose $m \geq 0$ (this is possible to suppose because $m$ is arbitrary, and 
 more importantly, it is physically impossible for frequency to be negative). 
-From this it follows that $\cos( (m + n) 2 \pi t)$ has $m + n$ oscillations 
-in a single period $T$, and consequently, $m + n$ oscillations in the 
-integration interval. Since this is true, when this function is integrated, 
+From this it follows that $\cos \big( (m + n) 2 \pi t \big)$ has $m + n$ 
+oscillations in a single period $T$, and consequently, $m + n$ oscillations in 
+the integration interval. Since this is true, when this function is integrated, 
 the result is $0$\footnote{The proof for this is trivial, however, it is 
 published by a third party online and is available to the reader at the 
 following link: \url{http://planetmath.org/integraloveraperiodinterval}.}. 
@@ -169,7 +175,14 @@ interval - from $-\frac{T}{2}$ to $\frac{T}{2}$) the following is true:
 $$\cos( (m - n) 2 \pi t) = \cos( (n - m) 2 \pi t)$$
 When $m = n$:
 $$\cos( (m - n) 2 \pi t) = \cos(0) = 1$$
-From these statements, the following follows:
+
+Due to the orthogonality of sines and cosines\footnote{The orthogonality of 
+	sines and cosines is outside of the scope of this paper, but in a nutshell,
+	it is the property of sines and cosines which states that:
+	\[
+		\int_{-\frac{T}{2}}^{\frac{T}{2}} \cos \bigg(\frac{(n + m) \pi}{T} t \bigg) + \cos \bigg(\frac{(n - m) \pi}{T} t \bigg) dt = 0 \text{ when } m \neq n
+	\]
+This paper considers it as a premise.} it follows that:
 \[
 	\int_{T} \cos( (m - n) 2 \pi t) = 
 	\begin{cases}
@@ -324,15 +337,15 @@ $$A =
 \end{pmatrix}\text{where, $a$, $b$, $c$, $d$ and $e$ are sample values}
 $$
 The \textit{Microsoft Waveform} datatype does not give information on the $x$ 
-axis, as these values are inferred to be a linear space from $0$ to the norm 
-of the $y$ vector. To get precise time information, ie. to get the number of 
-seconds for every point in the $y$ vector, it is necessary to use the sampling 
-frequency of the \textit{.wav} file. This sampling frequency, $F_s$, gives the 
-number of samples taken in a single second, ie. the number of $y$ values per 
-single second. Finally, to get the values of the $x$ axis, it is necessary to 
-multiply the aforementioned linear space by the reciprocal of the sampling 
-frequency. The domain of the \textit{.wav} file is stored in the $t$ column 
-vector:
+axis, as these values are inferred to be a linear space\footnote{A vector of 
+linearly equidistant values} from $0$ to the norm of the $y$ vector. To get 
+precise time information, ie. to get the number of seconds for every point in 
+the $y$ vector, it is necessary to use the sampling frequency of the 
+\textit{.wav} file. This sampling frequency, $F_s$, gives the number of samples
+taken in a single second, ie. the number of $y$ values per single second. 
+Finally, to get the values of the $x$ axis, it is necessary to multiply the 
+aforementioned linear space by the reciprocal of the sampling frequency. The 
+domain of the \textit{.wav} file is stored in the $t$ column vector:
 $$t = \frac{1}{F_s} \cdot
 \begin{pmatrix}
 	0 \\
@@ -378,7 +391,7 @@ $$
 A vector $f$ is created to store the domain of the Fourier transformation, 
 such that it is a linear space from $0$ to $1$ with the norm being equal to 
 the one returned Fourier transformation, multiplied by the sampling frequency 
-of the original file.
+of the original file. This is in turn, creates the frequency domain.
 $$f = F_s \cdot
 \begin{pmatrix}
 	0 \\
@@ -504,32 +517,41 @@ The algorithm seems effective in achieving the required result. The evaluation
 of the algorithm was incomplete, due to a lack of chord samples. For more 
 accurate evaluation it is necessary to use better chord samples.
 
+\clearpage
 \pagebreak
 \section*{Works cited}
+\begin{hangparas}{.25in}{1}
+
+``A Minor Chord (Ringout)''. Freesound.Org, 2014, 
+\url{https://freesound.org/people/dxe10/sounds/234061/}. Accessed 6 Oct 2018. \\
 
 Benward, Bruce, and Marilyn Nadine Saker. 
-\textit{Music In Theory And Practice}. Mcgraw-Hill, 2009.
+\textit{Music In Theory And Practice}. Mcgraw-Hill, 2009. \\
 
-Valente, Michael et al. \textit{Audiology}. Thieme, 2008.
+``Frequencies Of Musical Notes, A4 = 440 Hz''. \textit{Pages.Mtu.Edu}, 2018, 
+\url{https://pages.mtu.edu/~suits/notefreqs.html}. Accessed 3 Aug 2018. \\
+
+``Guitar - Major Chords Pack''. Freesound.Org, 2018, 
+\url{https://freesound.org/people/danglada/packs/1011/}. Accessed 6 Oct 2018. \\
 
 Hausner, Christoph. \textit{``Design And Evaluation Of A Simple Chord 
-Detection Algorithm''}. University Of Passau, 2014.
+Detection Algorithm''}. University Of Passau, 2014. \\
+
+``Integral Over A Period Interval''. \textit{Planetmath.Org}, 2018, 
+\url{http://planetmath.org/integraloveraperiodinterval}. Accessed 31 July 2018.
+\\
 
 Muludi, Kurnia, Aristoteles, and Abe Frank SFB Loupatty. \textit{``Chord 
 Identification Using Pitch Class Profile Method With Fast Fourier Transform 
 Feature Extraction''}. International Journal Of Computer Science Issues, vol 
-11, no. 3, 2018, pp. 139-144.
+11, no. 3, 2018, pp. 139-144. \\
 
 Shazam Entertainment, Ltd. \textit{An Industrial-Strength Audio Search 
 Algorithm}. 2018, 
 \url{http://www.ee.columbia.edu/~dpwe/papers/Wang03-shazam.pdf}. 
-Accessed 30 July 2018.
+Accessed 30 July 2018. \\
 
-"Integral Over A Period Interval". \textit{Planetmath.Org}, 2018, 
-\url{http://planetmath.org/integraloveraperiodinterval}. Accessed 31 July 2018.
+Valente, Michael et al. \textit{Audiology}. Thieme, 2008. \\
 
-"Frequencies Of Musical Notes, A4 = 440 Hz". \textit{Pages.Mtu.Edu}, 2018, 
-\url{https://pages.mtu.edu/~suits/notefreqs.html}. Accessed 3 Aug 2018.
-
-% TODO Cite chords
+\end{hangparas}
 \end{document}
