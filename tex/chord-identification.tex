@@ -8,6 +8,8 @@
 \usepackage{pgfplots}
 \usepackage{siunitx}
 \usepackage[notquote]{hanging}
+\usepackage{setspace}
+
 \pgfplotsset{compat=newest}
 
 \providecommand{\abs}[1]{\lvert#1\rvert}
@@ -100,18 +102,18 @@ is used.
 \subsection{Fourier transformation}
 
 \paragraph*{}
-To understand the Fourier transformation, a definition of what the Fourier 
-series is necessary.
+The Fourier transformation is based on the Fourier series.
 
 \subsubsection{Fourier series}
 
 \paragraph*{}
-The Fourier series is a method of representing arbitrary periodic functions as 
-a sum of simple sine and cosine functions. A method for deriving it follows.
+The Fourier series is a way of representing any periodic waveform as a series 
+of sine and cosine waves.
 
 \paragraph*{}
-Suppose an even function such as the one graphed in figure 
-\ref{fig:odd-arb-func} exists.
+Given a periodic signal such as the one given in figure \ref{fig:odd-arb-func},
+it is possible to express it as a sum of cosine waves:
+$$f(t) = \sum^{\infty}_{n=0}a_n \cos(2 \pi n t)$$
 \begin{figure}[ht]
 	\centering
 	\begin{tikzpicture}
@@ -127,22 +129,21 @@ Suppose an even function such as the one graphed in figure
 	\label{fig:odd-arb-func}
 \end{figure}
 
-The premise is that it is possible to express this function as a sum of cosine 
-waves:
-$$f(t) = \sum^{\infty}_{n=0}a_n \cos(2 \pi n t)$$
-
+\paragraph*{}
 Note that $n$ is the frequency of the wave in $\si{Hz}$. This derivation will 
 employ $\si{Hz}$, however, no difference does it pose to use a radial frequency
 either.
 
-However, from this premise, it is necessary to calculate the values of $a_n$'s. 
-This problem is solved in the following manner:
+\paragraph*{}
+It is required to calculate the amplitudes of the individual cosine waveforms 
+$a_n$.
 
 \paragraph*{}
-Both sides are multiplied by $\cos(2 \pi m t)$:
-$$f(t) \cos(2 \pi m t) = \sum^{\infty}_{n=0}b_n \cos(2 \pi n t) \cos(2 \pi m t)$$
-Next, both sides are integrated over one period of the function, and the 
-trigonometric identity of the product of cosines is employed:
+First, the left-hand and the right-hand side are multiplied by $\cos(2 \pi m t)$.
+$$f(t) \cos(2 \pi m t) = \sum^{\infty}_{n=0}a_n \cos(2 \pi n t) \cos(2 \pi m t)$$
+
+Then, integration is done on both sides of the equation and the trigonometric 
+product of cosines identity is used:
 \begin{equation}
 	\begin{aligned}
 		\int_{T} f(t) \cos(2 \pi m t) dt &= 
@@ -152,14 +153,15 @@ trigonometric identity of the product of cosines is employed:
 	\end{aligned}
 	\label{eqn:fourier-series-1}
 \end{equation}
-Suppose $m \geq 0$ (this is possible to suppose because $m$ is arbitrary, and 
-more importantly, it is physically impossible for frequency to be negative). 
-From this it follows that $\cos \big( (m + n) 2 \pi t \big)$ has $m + n$ 
-oscillations in a single period $T$, and consequently, $m + n$ oscillations in 
-the integration interval. Since this is true, when this function is integrated, 
-the result is $0$\footnote{The proof for this is trivial, however, it is 
-published by a third party online and is available to the reader at the 
-following link: \url{http://planetmath.org/integraloveraperiodinterval}.}. 
+
+Another premise is that $m \geq 0$ ($m$ is arbitrary and impossible for
+frequency to be negative). Because of this premise it follows that $\cos \big(
+(m + n) 2 \pi t \big)$ has $m + n$ oscillations in a period. Since this is true,
+when this function is integrated, the result is $0$\footnote{The proof for this
+is trivial, however, it is published by a third party online and is available to
+the reader at the following link:
+\url{http://planetmath.org/integraloveraperiodinterval}.}.
+
 Equation \ref{eqn:fourier-series-1} is then simplified to:
 \begin{equation}
 	\begin{aligned}
@@ -170,8 +172,8 @@ Equation \ref{eqn:fourier-series-1} is then simplified to:
 	\end{aligned}
 	\label{eqn:fourier-series-2}
 \end{equation}
-Since the cosine function is even, in a single period $T$ (the integration 
-interval - from $-\frac{T}{2}$ to $\frac{T}{2}$) the following is true:
+Since the cosine function is even, in one period (ie. the interval of the
+integration - from $-\frac{T}{2}$ to $\frac{T}{2}$) the following is true:
 $$\cos( (m - n) 2 \pi t) = \cos( (n - m) 2 \pi t)$$
 When $m = n$:
 $$\cos( (m - n) 2 \pi t) = \cos(0) = 1$$
@@ -180,7 +182,9 @@ Due to the orthogonality of sines and cosines\footnote{The orthogonality of
 	sines and cosines is outside of the scope of this paper, but in a nutshell,
 	it is the property of sines and cosines which states that:
 	\[
-		\int_{-\frac{T}{2}}^{\frac{T}{2}} \cos \bigg(\frac{(n + m) \pi}{T} t \bigg) + \cos \bigg(\frac{(n - m) \pi}{T} t \bigg) dt = 0 \text{ when } m \neq n
+		\int_{-\frac{T}{2}}^{\frac{T}{2}} \cos \bigg(\frac{(n + m) \pi}{T} t
+		\bigg) + \cos \bigg(\frac{(n - m) \pi}{T} t \bigg) dt = 0 \text{ when }
+		m \neq n
 	\]
 This paper considers it as a premise.} it follows that:
 \[
@@ -190,25 +194,21 @@ This paper considers it as a premise.} it follows that:
 		\int_{T} 1 \cdot dt = T & \text{when } m = n
 	\end{cases}
 \]
-It is key to note that:
-$$\forall (0 < m < \infty, 0 < n < \infty \land m \neq n) \rightarrow
-\int_{T} cos( (m - n) 2 \pi t) dt = 0$$
-From this it follows that the whole summation in equation 
-\ref{eqn:fourier-series-2} can be reduced to the case when $m = n$:
+The summation in equation \ref{eqn:fourier-series-2} is then reduced to the case
+when $m = n$:
 $$\int_T = f(t) \cos(m 2 \pi t) dt = \frac{1}{2} a_m T$$
-To get $a_m$ is trivial:
+Then $a_m$ is:
 \begin{equation*}
 	a_m = \frac{2}{T} \int_T f(t) \cos(m 2 \pi t) dt
 \end{equation*}
-Finally, replacing $m$ with $n$ we get:
+And, we can replace $m$ with $n$:
 \begin{equation}
 	a_n = \frac{2}{T} \int_T f(t) \cos(m 2 \pi t) dt
 	\label{eqn:fourier-series-amp}
 \end{equation}
 
-However, the case of $m = 0$ is not considered. This case gives the $y$ axis 
-offset $a_0$. Substituting with $m = 0$ in equation \ref{eqn:fourier-series-1}, 
-we get:
+The case of $m = 0$ gives the $y$ axis offset $a_0$. Substituting with $m = 0$
+in equation \ref{eqn:fourier-series-1}, we get:
 $$
 \begin{aligned}
 \int_{T} f(t) \cos(2 \pi m t) dt &= 
@@ -222,32 +222,35 @@ This gives the final result for the $y$ axis offset:
 	a_0 = \frac{1}{T} \int_T f(t) dt
 	\label{eqn:fourier-series-yoffset}
 \end{equation}
-This result is coincidentally intuitively the average of all of the $y$ values 
-of the points of the function in a single period.
 
-Odd functions are represented in a similar manner:
+\paragraph*{}
+Odd functions are represented with sine waves:
 $$f_o(t) = \sum^{\infty}_{n=1} b_n \sin(2 \pi n t)$$
-The coefficients $b_n$ are, then:
+The coefficient $b_n$ is given by:
 $$b_n = \frac{2}{T}\int_T f_o(t) \sin(2 \pi n t) dt$$
-As the derivation is quite similar to the one for the even function, it has 
-been omitted.
+The derivation is almost the same as for even functions and is therefore
+omitted.
 
-Since any arbitrary function $f(t)$ can be represented as a sum of odd and even 
+Since it is supposed any arbitrary function $f(t)$ is a sum of odd and even 
 functions:
-$$f_o(t) = \frac{1}{2}(f(t) - f(-t))$$
-$$f_e(t) = \frac{1}{2}(f(t) + f(-t))$$
-$$f(t) = f_o(t) + f_e(t)$$
+\begin{align*}
+	f_o(t) &= \frac{1}{2}(f(t) - f(-t)) \\
+	f_e(t) &= \frac{1}{2}(f(t) + f(-t)) \\
+	f(t) &= f_o(t) + f_e(t) \\
+\end{align*}
+
 The Fourier series' components can be applied:
 $$f(t) = a_0 + \sum^{\infty}_{n=1} (a_n \cos(2 \pi n t) + b_n \sin(2 \pi n t))$$
-with the coefficients being:
-$$a_0 = \frac{1}{T} \int_T f(t) dt$$
-$$a_n = \frac{2}{T} \int_T f(t) \cos(2 \pi n t) dt, n \neq 0$$
-$$b_n = \frac{2}{T} \int_T f(t) \sin(2 \pi n t) dt$$
+where
+\begin{align*}
+	a_0 &= \frac{1}{T} \int_T f(t) dt \\
+	a_n &= \frac{2}{T} \int_T f(t) \cos(2 \pi n t) dt, n \neq 0 \\
+	b_n &= \frac{2}{T} \int_T f(t) \sin(2 \pi n t) dt \\
+\end{align*}
 
-It is possible to express the Fourier series in its complex form, using 
-Euler's formulas:
-$$cos \phi = \frac{e^{i\phi} + e^{-i\phi}}{2}$$
-$$sin \phi = \frac{e^{i\phi} - e^{-i\phi}}{2i}$$
+Euler's formulae allow for expressing the Fourier series in complex form:
+$$cos \theta = \frac{e^{i\theta} + e^{-i\theta}}{2}$$
+$$sin \theta = \frac{e^{i\theta} - e^{-i\theta}}{2i}$$
 \begin{equation*}
 	\begin{aligned}
 		f(t) &=
@@ -260,7 +263,7 @@ $$sin \phi = \frac{e^{i\phi} - e^{-i\phi}}{2i}$$
 	\end{aligned}
 \end{equation*}
 
-Let us know define $c_n$ as 
+Next, $c_n$ is defined as:
 $$c_n = \frac{a_n - i b_n}{2}$$
 
 This gives the complex Fourier series:
@@ -269,7 +272,8 @@ This gives the complex Fourier series:
 \end{equation*}
 This is referred to as the \textit{synthesis} equation.
 
-From this it follows that $c_n$, the complex Fourier coefficient, is:
+\paragraph*{}
+$c_n$ is expressed in the following:
 \begin{equation*}
 	\begin{aligned}
 		c_n &= 
@@ -283,39 +287,47 @@ From this it follows that $c_n$, the complex Fourier coefficient, is:
 		c_n &= \frac{1}{T} \int_T f(t) e^{-i 2 \pi n t} dt
 	\end{aligned}
 \end{equation*}
-This is referred to as the \textit{analysis} equation. This equation gives 
-spectral lines for a frequency $n$. Note that it is not continuous.
+This is the \textit{analysis} equation.
 
 \subsection{The Fourier transformation}
 
 \paragraph*{}
-The Fourier transformation can be thought of as a continuous version of the 
-Fourier series:
+The Fourier transformation is the Fourier series but brought into a continuous 
+form:
 $$\hat{f} (t) = \int^{\infty}_{-\infty} f(t) e^{-i 2 \pi \nu t} dt$$
 
 \paragraph*{}
-Let the Fourier transformation be defined as the limit of the analysis 
-formula of the Fourier series as $T$ approaches infinity:
+The Fourier transformation is the limit of the Fourier series as $T$ approaches
+infinity:
 $$\hat{f} (t) = \lim_{T \rightarrow \infty} c_n = \lim_{T \rightarrow \infty} 
 \int_{-T / 2}^{T / 2} f(t) e^{-i 2 \pi n t} dt$$
-Note the factor $\frac{1}{T}$ is completely ignored, due to the fact that 
-$\lim_{n \rightarrow \infty} \frac{1}{n} = 0$, which would ruin the function. 
-This is far more relevant when doing the inverse Fourier transformation, 
-however the inverse Fourier transformation is outside of the scope of this 
-paper and therefore is not explored. The limit makes the spectral lines come 
-closer, creating the final equation:
+
+The factor $\frac{1}{T}$ is ignored, due to its limit being $0$:
+$$\lim_{n \rightarrow \infty} \frac{1}{n} = 0$$
+which would make the whole function $0$. It is not relevant in this discussion, 
+because here we define:
+$$f(t) \propto \frac{k}{T}$$
+where $k$ is varied with the period $T$.
+
+\paragraph*{}
+This assumption cannot be made when using the inverse Fourier transformation, 
+but the inverse Fourier transformation is outside of the scope of this paper.
+
+\paragraph*{}
+The limit is then evaluated to:
 $$\hat{f} (t) = \int_{-\infty}^{\infty} f(t) e^{-i 2 \pi \nu t} dt$$
-The power of this equation lies in the fact that it gives a continuous 
-function showing the frequencies of a \textit{non-periodic} signal. In turn, 
-it has practical applications in converting a signal from the time domain to 
-the frequency domain.
+
+\paragraph*{}
+This equation gives a continuous relationship between frequency and amplitude,
+which allows for identifying individual fundamental waveforms inside complex
+waveforms. Its applications are almost limitless - from analogue signal, to
+digital signal processing, image processing, seismic analysis and even medicine.
 
 \section{The chord identification algorithm}
 
 \paragraph*{} 
 Given an input signal such as the one given in figure \ref{fig:input-signal}, 
-the algorithm operates in %TODO
-distinct stages.
+the algorithm operates in $4$ distinct stages.
 \begin{figure}[ht] 
 	\centering
 	\includegraphics[width=\textwidth]{img/input-signal}
@@ -336,16 +348,19 @@ $$A =
 	\vdots
 \end{pmatrix}\text{where, $a$, $b$, $c$, $d$ and $e$ are sample values}
 $$
-The \textit{Microsoft Waveform} datatype does not give information on the $x$ 
-axis, as these values are inferred to be a linear space\footnote{A vector of 
-linearly equidistant values} from $0$ to the norm of the $y$ vector. To get 
-precise time information, ie. to get the number of seconds for every point in 
-the $y$ vector, it is necessary to use the sampling frequency of the 
-\textit{.wav} file. This sampling frequency, $F_s$, gives the number of samples
-taken in a single second, ie. the number of $y$ values per single second. 
-Finally, to get the values of the $x$ axis, it is necessary to multiply the 
-aforementioned linear space by the reciprocal of the sampling frequency. The 
-domain of the \textit{.wav} file is stored in the $t$ column vector:
+
+\paragraph*{}
+The \textit{Microsoft Waveform} datatype does not give information on the $x$
+axis, as these values are inferred to be a linear space\footnote{A vector of
+linearly equidistant values} from $0$ to the norm\footnote{The number of
+elements in a vector} of the $y$ vector. To get precise time information, ie. to
+get the number of seconds for every point in the $y$ vector, it is necessary to
+use the sampling frequency of the \textit{.wav} file. This sampling frequency,
+$F_s$, gives the number of samples taken in a single second, ie. the number of
+$y$ values per single second.  Finally, to get the values of the $x$ axis, it is
+necessary to multiply the aforementioned linear space by the reciprocal of the
+sampling frequency. The domain of the \textit{.wav} file is stored in the $t$
+column vector:
 $$t = \frac{1}{F_s} \cdot
 \begin{pmatrix}
 	0 \\
@@ -353,7 +368,7 @@ $$t = \frac{1}{F_s} \cdot
 	2 \\
 	3 \\
 	\vdots
-\end{pmatrix}\text{, where $|t| = |A|$}
+\end{pmatrix}\text{, where $\norm{t} = \norm{A}$}
 $$
 With these values, it is possible to proceed in the algorithm.
 
@@ -373,7 +388,7 @@ $$F' =
 	F_2 \\
 	F_3 \\
 	\vdots \\
-	F_{\frac{|F|}{2}}
+	F_{\frac{\norm{F}}{2}}
 \end{pmatrix}
 $$
 Since the numbers given by the Fourier transformation are complex, to get the 
@@ -385,7 +400,7 @@ $$F'' =
 	|F'_2| \\
 	|F'_3| \\
 	\vdots \\
-	|F'_{|F'|}|
+	|F'_{\norm{F'}}|
 \end{pmatrix}
 $$
 A vector $f$ is created to store the domain of the Fourier transformation, 
@@ -397,7 +412,7 @@ $$f = F_s \cdot
 	0 \\
 	\vdots \\
 	1
-\end{pmatrix}\text{, such that $|f| = |F''|$}
+\end{pmatrix}\text{, such that $\norm{f} = \norm{F''}$}
 $$
 
 \subsection{Fourier transform peak identification} 
@@ -470,8 +485,8 @@ $$c = 1 - \frac{\abs{v - r_k}}{\abs{o - r_k}}$$
 
 \subsection*{}
 \paragraph*{}
-The full algorithm is available at the following link: \url{}
-%TODO Put the link
+The full algorithm is available at the following link:
+\url{https://github.com/markovejnovic/Chordy}
 
 \subsection{Chord identification}
 \paragraph*{}
@@ -511,6 +526,18 @@ were out of tune, or the chords were played improperly, or the tune of the
 guitars was not one of $A_4 = 440$, or it is even possible that the guitars 
 used were not precisely manufactured.
 
+
+\paragraph*{}
+The maximal theoretical accuracy is calculated using a linear fit which was
+calculated using the \textit{RMSE}\footnote{Root Mean Square Error} method. The
+negative linear fit achieves a maximum value of:
+$$(0, 0.70861538)$$
+
+The maximal theoretical accuracy of the algorithm is therefore, using this data,
+$$70.9\%$$
+at a cutoff frequency of:
+$$c_o = 0$$
+
 \section{Conclusion}
 \paragraph*{}
 The algorithm seems effective in achieving the required result. The evaluation 
@@ -523,7 +550,7 @@ accurate evaluation it is necessary to use better chord samples.
 \begin{hangparas}{.25in}{1}
 
 ``A Minor Chord (Ringout)''. Freesound.Org, 2014, 
-\url{https://freesound.org/people/dxe10/sounds/234061/}. Accessed 6 Oct 2018. \\
+\url{https://freesound.org/people/dxe10/sounds/234061/}. Accessed 6 Oct 2018.\\
 
 Benward, Bruce, and Marilyn Nadine Saker. 
 \textit{Music In Theory And Practice}. Mcgraw-Hill, 2009. \\
