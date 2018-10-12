@@ -42,7 +42,7 @@ Research has been done which does allow simple chord progressions to be
 identified, but complex progressions remain a mystery.
 
 \paragraph*{}
-The likes of Hausner, Kurnia and of course, Wang, have developed algorithms 
+The likes of Hausner, Kurnia and, of course, Wang, have developed algorithms 
 which present themselves as being promising. Although currently, simple, with 
 the exception of Wang's, these algorithms are powerful enough to follow chord 
 progressions. However, with advancements in the field, it is likely that these 
@@ -58,19 +58,20 @@ algorithm for identifying chord progressions in songs.
 \subsection{Musical background}
 
 \paragraph*{}
-A chord is a musical unit in which three or more tones are played 
-simultaneously (Benward, and Saker). The most simple chords are 
-\textit{triads}, as they are composed of only three tones. Although they are 
-modeled by three composing sine waves (for example, the $C$ major chord is 
-$f_{C_4maj} (t) = sin(41.63t) + sin(52.46t) + sin(62.39t)$), it is very 
-important to note that actual musical instruments do not produce sine waves, 
-as there are physical events that prevent this - reverb\footnote{Reverberation 
-is the effect of reflecting sound waves. When sound waves reflect off of 
-surfaces many of them build up and then decay as they become absorbed (Valente 
-et al.). It is what allows us to discern from big halls to small studios when 
-hearing audio.}, distortion\footnote{Distortion is most easily modeled as 
-clipping. If a signal function is defined as $f(t) = A(a) sin(\omega t)$ then 
-clipping will, for example, occur when:
+A chord is a musical unit in which three or more tones\footnote{Air vibrations
+at a consistent pitch} are played simultaneously (Benward, and Saker). The most
+simple chords are \textit{triads}, as they are composed of only three tones.
+Although they are modeled by three composing sine waves (for example, the $C$
+major chord is $f_{C_4maj} (t) = sin(41.63t) + sin(52.46t) + sin(62.39t)$), it
+is very important to note that actual musical instruments do not produce sine
+waves, as there are physical events that prevent this -
+reverb\footnote{Reverberation is the effect of reflecting sound waves. When
+	sound waves reflect off of surfaces many of them build up and then decay as
+	they become absorbed (Valente et al.). It is what allows us to discern from
+	big halls to small studios when hearing audio.},
+	distortion\footnote{Distortion is most easily modeled as clipping. If a
+		signal function is defined as $f(t) = A(a) sin(\omega t)$ then clipping
+		will, for example, occur when:
 $$A(a) = 
 \begin{cases}
 	-4	& \text{when }a < -4 \\
@@ -136,7 +137,7 @@ either.
 
 \paragraph*{}
 It is required to calculate the amplitudes of the individual cosine waveforms 
-$a_n$.
+$a_n$ to get the constituting waveforms.
 
 \paragraph*{}
 First, the left-hand and the right-hand side are multiplied by $\cos(2 \pi m t)$.
@@ -195,7 +196,7 @@ This paper considers it as a premise.} it follows that:
 	\end{cases}
 \]
 The summation in equation \ref{eqn:fourier-series-2} is then reduced to the case
-when $m = n$:
+when $m = n$, because otherwise the sum is $0$:
 $$\int_T = f(t) \cos(m 2 \pi t) dt = \frac{1}{2} a_m T$$
 Then $a_m$ is:
 \begin{equation*}
@@ -350,14 +351,15 @@ $$A =
 $$
 
 \paragraph*{}
-The \textit{Microsoft Waveform} datatype does not give information on the $x$
-axis, as these values are inferred to be a linear space\footnote{A vector of
-linearly equidistant values} from $0$ to the norm\footnote{The number of
-elements in a vector} of the $y$ vector. To get precise time information, ie. to
-get the number of seconds for every point in the $y$ vector, it is necessary to
-use the sampling frequency of the \textit{.wav} file. This sampling frequency,
-$F_s$, gives the number of samples taken in a single second, ie. the number of
-$y$ values per single second.  Finally, to get the values of the $x$ axis, it is
+The \textit{Microsoft Waveform} datatype\footnote{The commonly used datatype for
+storing signals in computers}does not give information on the $x$ axis, as these
+values are inferred to be a linear space\footnote{A vector of linearly
+equidistant values} from $0$ to the norm\footnote{The number of elements in a
+vector} of the $y$ vector. To get precise time information, ie. to get the
+number of seconds for every point in the $y$ vector, it is necessary to use the
+sampling frequency of the \textit{.wav} file. This sampling frequency, $F_s$,
+gives the number of samples taken in a single second, ie. the number of $y$
+values per single second.  Finally, to get the values of the $x$ axis, it is
 necessary to multiply the aforementioned linear space by the reciprocal of the
 sampling frequency. The domain of the \textit{.wav} file is stored in the $t$
 column vector:
